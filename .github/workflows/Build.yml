@@ -25,6 +25,7 @@ jobs:
       - name: Build with Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
+          gradle-version: '9.3.1' # Explicitly tells the action to install Gradle 9.3.1
           arguments: assembleDebug
 
       - name: Upload Compiled Debug APK
