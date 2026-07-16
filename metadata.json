@@ -1,0 +1,6 @@
+{
+  "name": "Calculator",
+  "description": "A beautiful, native, gesture-friendly calculator with dual light and dark theme support, history logging, and tactile animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
