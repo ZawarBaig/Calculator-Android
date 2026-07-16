@@ -32,7 +32,7 @@ jobs:
 
       - name: Generate Dummy Google Services JSON
         run: |
-          # Creates a mock google-services.json for com.example to prevent the plugin from failing
+          # Creates a mock google-services.json matching your exact package name
           echo '{
             "project_info": { 
               "project_number": "123456789012", 
@@ -42,7 +42,7 @@ jobs:
               { 
                 "client_info": { 
                   "mobilesdk_app_id": "1:123456789012:android:0000000000000000000000", 
-                  "android_client_info": { "package_name": "com.example" } 
+                  "android_client_info": { "package_name": "com.aistudio.calculator.wtyqpm" } 
                 },
                 "api_key": [ 
                   { "current_key": "AIzaSyDummyKeyForBuilds1234567890" } 
