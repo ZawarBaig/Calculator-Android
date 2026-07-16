@@ -22,10 +22,44 @@ jobs:
           java-version: '17'
           cache: 'gradle'
 
+      - name: Ensure Environment Files
+        run: |
+          if [ -f .env.example ]; then
+            cp .env.example .env
+          else
+            touch .env
+          fi
+
+      - name: Generate Dummy Google Services JSON
+        run: |
+          # Creates a mock google-services.json for com.example to prevent the plugin from failing
+          echo '{
+            "project_info": { 
+              "project_number": "123456789012", 
+              "project_id": "mock-project" 
+            },
+            "client": [ 
+              { 
+                "client_info": { 
+                  "mobilesdk_app_id": "1:123456789012:android:0000000000000000000000", 
+                  "android_client_info": { "package_name": "com.example" } 
+                },
+                "api_key": [ 
+                  { "current_key": "AIzaSyDummyKeyForBuilds1234567890" } 
+                ]
+              } 
+            ]
+          }' > app/google-services.json
+
+      - name: Generate Debug Keystore
+        run: |
+          # Generates a temporary debug.keystore on the CI runner
+          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "C=US, O=Android, CN=Android Debug"
+
       - name: Build with Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
-          gradle-version: '9.3.1' # Explicitly tells the action to install Gradle 9.3.1
+          gradle-version: '9.3.1'
           arguments: assembleDebug
 
       - name: Upload Compiled Debug APK
